@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>김민준 ♥ 이서연 결혼합니다</title>
+  <meta name="description" content="2027년 4월 17일 토요일 오후 1시 30분, 저희 두 사람의 결혼식에 초대합니다.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- 3D 광택 하트 (재사용용 SVG) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <radialGradient id="heartGloss" cx="35%" cy="30%" r="75%">
+        <stop offset="0%" stop-color="#ffe3f1"/>
+        <stop offset="35%" stop-color="#ff8cc6"/>
+        <stop offset="80%" stop-color="#ff4f9a"/>
+        <stop offset="100%" stop-color="#d9337a"/>
+      </radialGradient>
+      <radialGradient id="heartGlossLilac" cx="35%" cy="30%" r="75%">
+        <stop offset="0%" stop-color="#f3ecff"/>
+        <stop offset="40%" stop-color="#c7a8ff"/>
+        <stop offset="100%" stop-color="#8b5cf6"/>
+      </radialGradient>
+      <symbol id="heart" viewBox="0 0 100 90">
+        <path d="M50 88 C20 66 2 48 2 27 C2 12 14 2 28 2 C38 2 46 8 50 16 C54 8 62 2 72 2 C86 2 98 12 98 27 C98 48 80 66 50 88Z"/>
+        <ellipse cx="28" cy="22" rx="12" ry="7" fill="#fff" opacity=".7" transform="rotate(-30 28 22)"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- 배경에 떠다니는 하트들 (JS로 생성) -->
+  <div class="floating" id="floating" aria-hidden="true"></div>
+
+  <main class="invitation">
+
+    <!-- 커버 -->
+    <section class="cover">
+      <p class="cover__label"><span>WE'RE</span> GETTING <span>MARRIED!</span></p>
+
+      <div class="cover__stage">
+        <div class="cover__card" id="tiltCard">
+          <div class="cover__photo">
+            <span>사진 영역</span>
+          </div>
+          <svg class="cover__heart h1" aria-hidden="true"><use href="#heart" fill="url(#heartGloss)"/></svg>
+          <svg class="cover__heart h2" aria-hidden="true"><use href="#heart" fill="url(#heartGlossLilac)"/></svg>
+          <svg class="cover__heart h3" aria-hidden="true"><use href="#heart" fill="url(#heartGloss)"/></svg>
+          <!-- 회전하는 원형 스티커 -->
+          <div class="badge" aria-hidden="true">
+            <svg viewBox="0 0 120 120">
+              <path id="circlePath" d="M60,60 m-45,0 a45,45 0 1,1 90,0 a45,45 0 1,1 -90,0" fill="none"/>
+              <text><textPath href="#circlePath">SAVE THE DATE ✦ SAVE THE DATE ✦ </textPath></text>
+            </svg>
+            <b>04.17</b>
+          </div>
+        </div>
+      </div>
+
+      <h1 class="cover__names">
+        <span>민준</span>
+        <svg class="cover__amp" aria-hidden="true"><use href="#heart" fill="url(#heartGloss)"/></svg>
+        <span>서연</span>
+      </h1>
+      <p class="cover__date">2027. 04. 17. SAT 1:30 PM</p>
+      <p class="cover__place">더채플 웨딩홀 3층 그랜드홀</p>
+    </section>
+
+    <!-- 흐르는 띠 배너 -->
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__track">
+        <span>LOVE WINS ♥ MINJUN &amp; SEOYEON ♥ 2027.04.17 ♥ SAVE THE DATE ♥&nbsp;</span>
+        <span>LOVE WINS ♥ MINJUN &amp; SEOYEON ♥ 2027.04.17 ♥ SAVE THE DATE ♥&nbsp;</span>
+      </div>
+    </div>
+
+    <!-- 인사말 -->
+    <section class="section fade">
+      <h2 class="section__title">Invitation<small>초대합니다</small></h2>
+      <div class="clay greeting">
+        <p class="greeting__poem">
+          봄날의 햇살처럼 따스한 사람을 만나<br>
+          평생을 함께 걸어가려 합니다.<br><br>
+          서로를 아끼고 존중하며<br>
+          예쁘게 살겠습니다.<br><br>
+          저희의 새로운 시작을<br>
+          축복으로 함께해 주세요.
+        </p>
+        <div class="greeting__family">
+          <p>김정호 · 박미경 <i>의 장남</i> <b class="pill groom">민준</b></p>
+          <p>이성훈 · 최은희 <i>의 장녀</i> <b class="pill bride">서연</b></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 예식 일시 -->
+    <section class="section fade">
+      <h2 class="section__title">Wedding Day<small>예식 일시</small></h2>
+      <p class="calendar__when">2027년 4월 17일 토요일 오후 1시 30분</p>
+      <div class="clay calendar__box">
+        <p class="calendar__month">APRIL</p>
+        <div class="calendar__grid" id="calendarGrid">
+          <span class="dow sun">일</span><span class="dow">월</span><span class="dow">화</span>
+          <span class="dow">수</span><span class="dow">목</span><span class="dow">금</span><span class="dow sat">토</span>
+        </div>
+      </div>
+      <div class="countdown" id="countdown">
+        <div class="cube"><strong data-unit="days">0</strong><span>DAYS</span></div>
+        <div class="cube"><strong data-unit="hours">0</strong><span>HOUR</span></div>
+        <div class="cube"><strong data-unit="minutes">0</strong><span>MIN</span></div>
+        <div class="cube"><strong data-unit="seconds">0</strong><span>SEC</span></div>
+      </div>
+      <p class="countdown__msg" id="countdownMsg"></p>
+    </section>
+
+    <!-- 갤러리 -->
+    <section class="section fade">
+      <h2 class="section__title">Gallery<small>우리의 순간</small></h2>
+      <div class="gallery__grid" id="galleryGrid">
+        <button class="gallery__item" data-index="0"><span>1</span></button>
+        <button class="gallery__item" data-index="1"><span>2</span></button>
+        <button class="gallery__item" data-index="2"><span>3</span></button>
+        <button class="gallery__item" data-index="3"><span>4</span></button>
+        <button class="gallery__item" data-index="4"><span>5</span></button>
+        <button class="gallery__item" data-index="5"><span>6</span></button>
+      </div>
+    </section>
+
+    <!-- 오시는 길 -->
+    <section class="section fade">
+      <h2 class="section__title">Location<small>오시는 길</small></h2>
+      <div class="clay location">
+        <p class="location__name">더채플 웨딩홀 3층 그랜드홀</p>
+        <p class="location__addr">서울특별시 강남구 테헤란로 123</p>
+        <div class="location__map" aria-hidden="true">
+          <svg class="map-pin"><use href="#heart" fill="url(#heartGloss)"/></svg>
+          <span>지도 영역</span>
+        </div>
+        <div class="location__links">
+          <a class="btn3d" href="https://map.naver.com/p/search/%EB%8D%94%EC%B1%84%ED%94%8C" target="_blank" rel="noopener">네이버 지도</a>
+          <a class="btn3d" href="https://map.kakao.com/?q=%EB%8D%94%EC%B1%84%ED%94%8C" target="_blank" rel="noopener">카카오맵</a>
+          <button type="button" class="btn3d copy-btn" data-copy="서울특별시 강남구 테헤란로 123">주소 복사</button>
+        </div>
+        <dl class="location__guide">
+          <dt>🚇 지하철</dt>
+          <dd>2호선 강남역 3번 출구 도보 5분</dd>
+          <dt>🚌 버스</dt>
+          <dd>강남역 정류장 하차 (146, 341, 360)</dd>
+          <dt>🚗 주차</dt>
+          <dd>건물 지하 주차장 2시간 무료</dd>
+        </dl>
+      </div>
+    </section>
+
+    <!-- 마음 전하실 곳 -->
+    <section class="section fade">
+      <h2 class="section__title">With Love<small>마음 전하실 곳</small></h2>
+      <p class="account__desc">참석이 어려우신 분들을 위해 기재했습니다.<br>너그러운 마음으로 양해 부탁드립니다.</p>
+
+      <div class="accordion">
+        <button class="accordion__head" type="button" aria-expanded="false">💙 신랑측 계좌번호</button>
+        <div class="accordion__body">
+          <div class="account__row">
+            <div><p>신랑 김민준</p><span>국민은행 123-456-789012</span></div>
+            <button type="button" class="btn3d small copy-btn" data-copy="국민은행 123-456-789012">복사</button>
+          </div>
+          <div class="account__row">
+            <div><p>아버지 김정호</p><span>신한은행 110-123-456789</span></div>
+            <button type="button" class="btn3d small copy-btn" data-copy="신한은행 110-123-456789">복사</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <button class="accordion__head" type="button" aria-expanded="false">💗 신부측 계좌번호</button>
+        <div class="accordion__body">
+          <div class="account__row">
+            <div><p>신부 이서연</p><span>우리은행 1002-123-456789</span></div>
+            <button type="button" class="btn3d small copy-btn" data-copy="우리은행 1002-123-456789">복사</button>
+          </div>
+          <div class="account__row">
+            <div><p>아버지 이성훈</p><span>하나은행 123-456789-01234</span></div>
+            <button type="button" class="btn3d small copy-btn" data-copy="하나은행 123-456789-01234">복사</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 방명록 -->
+    <section class="section fade">
+      <h2 class="section__title">Guestbook<small>축하 메시지</small></h2>
+      <form class="clay guestbook__form" id="guestbookForm">
+        <input type="text" id="gbName" placeholder="이름" maxlength="10" required>
+        <textarea id="gbMsg" placeholder="축하 메시지를 남겨주세요 ♥" maxlength="200" rows="3" required></textarea>
+        <button type="submit" class="btn3d primary">메시지 남기기</button>
+      </form>
+      <ul class="guestbook__list" id="guestbookList"></ul>
+    </section>
+
+    <!-- 공유 / 푸터 -->
+    <footer class="footer">
+      <svg class="footer__heart" aria-hidden="true"><use href="#heart" fill="url(#heartGloss)"/></svg>
+      <p class="footer__big">Thank<br>You!</p>
+      <button type="button" class="btn3d primary" id="shareBtn">청첩장 공유하기</button>
+      <p class="footer__copy">MINJUN &amp; SEOYEON · 2027</p>
+    </footer>
+  </main>
+
+  <!-- 갤러리 확대 보기 -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button type="button" class="lightbox__close" id="lbClose" aria-label="닫기">&times;</button>
+    <button type="button" class="lightbox__nav prev" id="lbPrev" aria-label="이전">&#8249;</button>
+    <div class="lightbox__img" id="lbImg"></div>
+    <button type="button" class="lightbox__nav next" id="lbNext" aria-label="다음">&#8250;</button>
+  </div>
+
+  <!-- 토스트 메시지 -->
+  <div class="toast" id="toast"></div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
