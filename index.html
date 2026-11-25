@@ -2,224 +2,302 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>김민준 ♥ 이서연 결혼합니다</title>
-  <meta name="description" content="2027년 4월 17일 토요일 오후 1시 30분, 저희 두 사람의 결혼식에 초대합니다.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>MELLOW BEAN</title>
+
+  <!-- 글꼴: Anton(영문 제목), Black Han Sans(한글 제목), Pretendard(본문) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Black+Han+Sans&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- 3D 광택 하트 (재사용용 SVG) -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <defs>
-      <radialGradient id="heartGloss" cx="35%" cy="30%" r="75%">
-        <stop offset="0%" stop-color="#ffe3f1"/>
-        <stop offset="35%" stop-color="#ff8cc6"/>
-        <stop offset="80%" stop-color="#ff4f9a"/>
-        <stop offset="100%" stop-color="#d9337a"/>
-      </radialGradient>
-      <radialGradient id="heartGlossLilac" cx="35%" cy="30%" r="75%">
-        <stop offset="0%" stop-color="#f3ecff"/>
-        <stop offset="40%" stop-color="#c7a8ff"/>
-        <stop offset="100%" stop-color="#8b5cf6"/>
-      </radialGradient>
-      <symbol id="heart" viewBox="0 0 100 90">
-        <path d="M50 88 C20 66 2 48 2 27 C2 12 14 2 28 2 C38 2 46 8 50 16 C54 8 62 2 72 2 C86 2 98 12 98 27 C98 48 80 66 50 88Z"/>
-        <ellipse cx="28" cy="22" rx="12" ry="7" fill="#fff" opacity=".7" transform="rotate(-30 28 22)"/>
-      </symbol>
-    </defs>
-  </svg>
 
-  <!-- 배경에 떠다니는 하트들 (JS로 생성) -->
-  <div class="floating" id="floating" aria-hidden="true"></div>
+  <!-- 스크롤 진행 막대 (맨 위 오렌지 선) -->
+  <div class="progress"></div>
 
-  <main class="invitation">
+  <!-- 1. Header -->
+  <header class="header">
+    <a href="#top" class="logo">MELLOW BEAN</a>
+    <!-- 모바일에서만 보이는 햄버거 버튼 -->
+    <button class="menu-toggle" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="site-nav">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav" id="site-nav">
+      <a href="#menu">메뉴</a>
+      <a href="#about">소개</a>
+      <a href="#location">오시는 길</a>
+      <a href="#story">이야기</a>
+      <a href="#signature">시그니처</a>
+    </nav>
+  </header>
 
-    <!-- 커버 -->
-    <section class="cover">
-      <p class="cover__label"><span>WE'RE</span> GETTING <span>MARRIED!</span></p>
+  <!-- 모바일에서만 보이는 하단 플로팅 내비 (지금 보고 있는 섹션이 노랗게 표시돼요) -->
+  <nav class="bottom-nav" aria-label="빠른 이동">
+    <a href="#menu">메뉴</a>
+    <a href="#about">소개</a>
+    <a href="#story">이야기</a>
+    <a href="#signature">시그니처</a>
+    <a href="#findus">오시는 길</a>
+  </nav>
 
-      <div class="cover__stage">
-        <div class="cover__card" id="tiltCard">
-          <div class="cover__photo">
-            <span>사진 영역</span>
-          </div>
-          <svg class="cover__heart h1" aria-hidden="true"><use href="#heart" fill="url(#heartGloss)"/></svg>
-          <svg class="cover__heart h2" aria-hidden="true"><use href="#heart" fill="url(#heartGlossLilac)"/></svg>
-          <svg class="cover__heart h3" aria-hidden="true"><use href="#heart" fill="url(#heartGloss)"/></svg>
-          <!-- 회전하는 원형 스티커 -->
-          <div class="badge" aria-hidden="true">
-            <svg viewBox="0 0 120 120">
-              <path id="circlePath" d="M60,60 m-45,0 a45,45 0 1,1 90,0 a45,45 0 1,1 -90,0" fill="none"/>
-              <text><textPath href="#circlePath">SAVE THE DATE ✦ SAVE THE DATE ✦ </textPath></text>
-            </svg>
-            <b>04.17</b>
-          </div>
-        </div>
+  <main>
+    <!-- 2. 첫 화면 (노랑 띠) -->
+    <section class="hero stripe-yellow" id="top">
+      <div class="hero-text">
+        <p class="hero-tag">대구 중구 · 2021년부터</p>
+        <h1 class="hero-title">
+          <span class="line"><span>오늘 볶은 원두로,</span></span>
+          <span class="line"><span>한 잔씩 <em class="mark">천천히.</em></span></span>
+        </h1>
+        <p class="hero-desc">
+          골목 안쪽, 테이블 여섯 개짜리 작은 카페입니다.<br>
+          원두는 매주 화요일과 금요일에 조금씩 볶습니다.
+        </p>
+        <a href="#menu" class="text-link">메뉴 보기 <span class="arrow">→</span></a>
       </div>
 
-      <h1 class="cover__names">
-        <span>민준</span>
-        <svg class="cover__amp" aria-hidden="true"><use href="#heart" fill="url(#heartGloss)"/></svg>
-        <span>서연</span>
-      </h1>
-      <p class="cover__date">2027. 04. 17. SAT 1:30 PM</p>
-      <p class="cover__place">더채플 웨딩홀 3층 그랜드홀</p>
+      <div class="hero-visual">
+        <div class="blob blob-cobalt"></div>
+        <div class="blob blob-orange"></div>
+        <div class="hero-image">
+          <img src="images/hand-drip-coffee.jpg" alt="핸드드립으로 커피를 내리는 모습">
+        </div>
+      </div>
     </section>
 
-    <!-- 흐르는 띠 배너 -->
-    <div class="ticker" aria-hidden="true">
-      <div class="ticker__track">
-        <span>LOVE WINS ♥ MINJUN &amp; SEOYEON ♥ 2027.04.17 ♥ SAVE THE DATE ♥&nbsp;</span>
-        <span>LOVE WINS ♥ MINJUN &amp; SEOYEON ♥ 2027.04.17 ♥ SAVE THE DATE ♥&nbsp;</span>
+    <!-- 흐르는 글자 띠 2줄 (서로 반대로 흐르며 엇갈림) -->
+    <div class="tapes" aria-hidden="true">
+      <div class="tape tape-dark">
+        <div class="tape-track">
+          <span>COFFEE • ADE • DESSERT • COFFEE • ADE • DESSERT • COFFEE • ADE • DESSERT • </span>
+          <span>COFFEE • ADE • DESSERT • COFFEE • ADE • DESSERT • COFFEE • ADE • DESSERT • </span>
+        </div>
+      </div>
+      <div class="tape tape-orange">
+        <div class="tape-track reverse">
+          <span>COFFEE • ADE • DESSERT • COFFEE • ADE • DESSERT • COFFEE • ADE • DESSERT • </span>
+          <span>COFFEE • ADE • DESSERT • COFFEE • ADE • DESSERT • COFFEE • ADE • DESSERT • </span>
+        </div>
       </div>
     </div>
 
-    <!-- 인사말 -->
-    <section class="section fade">
-      <h2 class="section__title">Invitation<small>초대합니다</small></h2>
-      <div class="clay greeting">
-        <p class="greeting__poem">
-          봄날의 햇살처럼 따스한 사람을 만나<br>
-          평생을 함께 걸어가려 합니다.<br><br>
-          서로를 아끼고 존중하며<br>
-          예쁘게 살겠습니다.<br><br>
-          저희의 새로운 시작을<br>
-          축복으로 함께해 주세요.
+    <!-- 3. 메뉴 (코발트 띠) -->
+    <section class="menu stripe-cobalt" id="menu">
+      <h2 class="section-title" data-reveal>메뉴</h2>
+      <ul class="menu-list">
+        <li class="menu-item" data-reveal>
+          <div class="menu-thumb"><img src="images/latte-art.jpg" alt="Cream Latte"></div>
+          <div class="menu-info">
+            <h3>Cream Latte</h3>
+            <p>부드러운 크림과 에스프레소가 어우러진 시그니처 라떼</p>
+          </div>
+          <span class="menu-price">6,500</span>
+        </li>
+        <li class="menu-item" data-reveal style="--delay: 0.12s">
+          <div class="menu-thumb"><img src="images/tiramisu.jpg" alt="Classic Tiramisu"></div>
+          <div class="menu-info">
+            <h3>Classic Tiramisu</h3>
+            <p>진한 마스카포네 크림과 커피 향을 담은 수제 티라미수</p>
+          </div>
+          <span class="menu-price">7,000</span>
+        </li>
+        <li class="menu-item" data-reveal style="--delay: 0.24s">
+          <div class="menu-thumb"><img src="images/lemon-ade.jpg" alt="Mellow Ade"></div>
+          <div class="menu-info">
+            <h3>Mellow Ade</h3>
+            <p>레몬과 허브를 사용한 상큼한 시그니처 에이드</p>
+          </div>
+          <span class="menu-price">6,000</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 4. 소개 · 오시는 길 (오렌지 띠) -->
+    <section class="about stripe-orange" id="about">
+      <div class="about-image" data-reveal>
+        <img src="images/cafe-interior.jpg" alt="MELLOW BEAN 매장 내부" class="parallax">
+      </div>
+      <div class="about-text">
+        <h2 class="section-title" data-reveal>소개</h2>
+        <p class="about-desc" data-reveal style="--delay: 0.1s">
+          MELLOW BEAN은 편안한 공간에서 좋은 커피와 디저트를 즐길 수 있는 작은 카페입니다.
+          노트북 자리보다 대화하기 좋은 자리를 먼저 생각했습니다.
         </p>
-        <div class="greeting__family">
-          <p>김정호 · 박미경 <i>의 장남</i> <b class="pill groom">민준</b></p>
-          <p>이성훈 · 최은희 <i>의 장녀</i> <b class="pill bride">서연</b></p>
-        </div>
+
+        <h2 class="section-title" id="location" data-reveal>오시는 길</h2>
+        <table class="info-table" data-reveal style="--delay: 0.1s">
+          <tr><th>주소</th><td>대구광역시 중구 멜로우로 12</td></tr>
+          <tr><th>영업시간</th><td>매일 10:00 – 21:00</td></tr>
+          <tr><th>휴무</th><td>매주 월요일</td></tr>
+          <tr><th>문의</th><td>hello@mellowbean.com · @mellowbean</td></tr>
+        </table>
       </div>
     </section>
 
-    <!-- 예식 일시 -->
-    <section class="section fade">
-      <h2 class="section__title">Wedding Day<small>예식 일시</small></h2>
-      <p class="calendar__when">2027년 4월 17일 토요일 오후 1시 30분</p>
-      <div class="clay calendar__box">
-        <p class="calendar__month">APRIL</p>
-        <div class="calendar__grid" id="calendarGrid">
-          <span class="dow sun">일</span><span class="dow">월</span><span class="dow">화</span>
-          <span class="dow">수</span><span class="dow">목</span><span class="dow">금</span><span class="dow sat">토</span>
+    <!-- ========== 추가 페이지 1: 커지는 사진 + 숫자 (노랑 띠) ========== -->
+
+    <!-- 흐르는 글자 띠 (오렌지 → 노랑 경계) -->
+    <div class="tapes tapes-orange-yellow" aria-hidden="true">
+      <div class="tape tape-dark">
+        <div class="tape-track reverse">
+          <span>COFFEE • ADE • DESSERT • COFFEE • ADE • DESSERT • COFFEE • ADE • DESSERT • </span>
+          <span>COFFEE • ADE • DESSERT • COFFEE • ADE • DESSERT • COFFEE • ADE • DESSERT • </span>
         </div>
       </div>
-      <div class="countdown" id="countdown">
-        <div class="cube"><strong data-unit="days">0</strong><span>DAYS</span></div>
-        <div class="cube"><strong data-unit="hours">0</strong><span>HOUR</span></div>
-        <div class="cube"><strong data-unit="minutes">0</strong><span>MIN</span></div>
-        <div class="cube"><strong data-unit="seconds">0</strong><span>SEC</span></div>
-      </div>
-      <p class="countdown__msg" id="countdownMsg"></p>
-    </section>
-
-    <!-- 갤러리 -->
-    <section class="section fade">
-      <h2 class="section__title">Gallery<small>우리의 순간</small></h2>
-      <div class="gallery__grid" id="galleryGrid">
-        <button class="gallery__item" data-index="0"><span>1</span></button>
-        <button class="gallery__item" data-index="1"><span>2</span></button>
-        <button class="gallery__item" data-index="2"><span>3</span></button>
-        <button class="gallery__item" data-index="3"><span>4</span></button>
-        <button class="gallery__item" data-index="4"><span>5</span></button>
-        <button class="gallery__item" data-index="5"><span>6</span></button>
-      </div>
-    </section>
-
-    <!-- 오시는 길 -->
-    <section class="section fade">
-      <h2 class="section__title">Location<small>오시는 길</small></h2>
-      <div class="clay location">
-        <p class="location__name">더채플 웨딩홀 3층 그랜드홀</p>
-        <p class="location__addr">서울특별시 강남구 테헤란로 123</p>
-        <div class="location__map" aria-hidden="true">
-          <svg class="map-pin"><use href="#heart" fill="url(#heartGloss)"/></svg>
-          <span>지도 영역</span>
+      <div class="tape tape-cobalt">
+        <div class="tape-track">
+          <span>COFFEE • ADE • DESSERT • COFFEE • ADE • DESSERT • COFFEE • ADE • DESSERT • </span>
+          <span>COFFEE • ADE • DESSERT • COFFEE • ADE • DESSERT • COFFEE • ADE • DESSERT • </span>
         </div>
-        <div class="location__links">
-          <a class="btn3d" href="https://map.naver.com/p/search/%EB%8D%94%EC%B1%84%ED%94%8C" target="_blank" rel="noopener">네이버 지도</a>
-          <a class="btn3d" href="https://map.kakao.com/?q=%EB%8D%94%EC%B1%84%ED%94%8C" target="_blank" rel="noopener">카카오맵</a>
-          <button type="button" class="btn3d copy-btn" data-copy="서울특별시 강남구 테헤란로 123">주소 복사</button>
-        </div>
-        <dl class="location__guide">
-          <dt>🚇 지하철</dt>
-          <dd>2호선 강남역 3번 출구 도보 5분</dd>
-          <dt>🚌 버스</dt>
-          <dd>강남역 정류장 하차 (146, 341, 360)</dd>
-          <dt>🚗 주차</dt>
-          <dd>건물 지하 주차장 2시간 무료</dd>
-        </dl>
       </div>
-    </section>
+    </div>
 
-    <!-- 마음 전하실 곳 -->
-    <section class="section fade">
-      <h2 class="section__title">With Love<small>마음 전하실 곳</small></h2>
-      <p class="account__desc">참석이 어려우신 분들을 위해 기재했습니다.<br>너그러운 마음으로 양해 부탁드립니다.</p>
-
-      <div class="accordion">
-        <button class="accordion__head" type="button" aria-expanded="false">💙 신랑측 계좌번호</button>
-        <div class="accordion__body">
-          <div class="account__row">
-            <div><p>신랑 김민준</p><span>국민은행 123-456-789012</span></div>
-            <button type="button" class="btn3d small copy-btn" data-copy="국민은행 123-456-789012">복사</button>
+    <section class="zoom stripe-yellow" id="story">
+      <!-- 스크롤하면 가운데 사진이 화면 가득 커지고, 뒤의 큰 글자가 양옆으로 갈라져요 -->
+      <div class="zoom-track">
+        <div class="zoom-sticky">
+          <p class="zoom-word" aria-hidden="true">
+            <span class="word-left">MELLOW</span>
+            <span class="word-right">BEAN</span>
+          </p>
+          <!-- 주변에 떠 있던 사진들이 스크롤하면 바깥으로 흩어져요 -->
+          <div class="float-photo" style="--dx: -30vw; --dy: -20vh; --r: -10deg;">
+            <img src="images/strawberry-latte.jpg" alt="딸기라떼">
           </div>
-          <div class="account__row">
-            <div><p>아버지 김정호</p><span>신한은행 110-123-456789</span></div>
-            <button type="button" class="btn3d small copy-btn" data-copy="신한은행 110-123-456789">복사</button>
+          <div class="float-photo" style="--dx: 30vw; --dy: -22vh; --r: 8deg; animation-delay: -1s;">
+            <img src="images/lemon-ade.jpg" alt="Mellow Ade">
+          </div>
+          <div class="float-photo" style="--dx: -28vw; --dy: 24vh; --r: 6deg; animation-delay: -2s;">
+            <img src="images/tiramisu.jpg" alt="Classic Tiramisu">
+          </div>
+          <div class="float-photo" style="--dx: 30vw; --dy: 22vh; --r: -8deg; animation-delay: -0.5s;">
+            <img src="images/latte-art.jpg" alt="Cream Latte">
+          </div>
+
+          <div class="zoom-image">
+            <img src="images/latte-with-cookie.jpg" alt="라떼와 쿠키">
+            <!-- 사진이 화면을 가득 채우면 글이 떠올라요 -->
+            <p class="zoom-quote">노트북 자리보다<br>대화하기 좋은 자리를<br>먼저 생각했습니다.</p>
           </div>
         </div>
       </div>
 
-      <div class="accordion">
-        <button class="accordion__head" type="button" aria-expanded="false">💗 신부측 계좌번호</button>
-        <div class="accordion__body">
-          <div class="account__row">
-            <div><p>신부 이서연</p><span>우리은행 1002-123-456789</span></div>
-            <button type="button" class="btn3d small copy-btn" data-copy="우리은행 1002-123-456789">복사</button>
-          </div>
-          <div class="account__row">
-            <div><p>아버지 이성훈</p><span>하나은행 123-456789-01234</span></div>
-            <button type="button" class="btn3d small copy-btn" data-copy="하나은행 123-456789-01234">복사</button>
-          </div>
+      <!-- 화면에 들어오면 숫자가 0부터 올라가요 -->
+      <div class="stats">
+        <div class="stat" data-reveal>
+          <span class="count" data-to="2021">0</span>
+          <p>대구 중구 · 2021년부터</p>
+        </div>
+        <div class="stat" data-reveal style="--delay: 0.12s">
+          <span class="count" data-to="6">0</span>
+          <p>테이블 여섯 개짜리 작은 카페</p>
+        </div>
+        <div class="stat" data-reveal style="--delay: 0.24s">
+          <span class="count" data-to="2">0</span>
+          <p>원두 볶는 날 · 매주 화요일과 금요일</p>
         </div>
       </div>
     </section>
 
-    <!-- 방명록 -->
-    <section class="section fade">
-      <h2 class="section__title">Guestbook<small>축하 메시지</small></h2>
-      <form class="clay guestbook__form" id="guestbookForm">
-        <input type="text" id="gbName" placeholder="이름" maxlength="10" required>
-        <textarea id="gbMsg" placeholder="축하 메시지를 남겨주세요 ♥" maxlength="200" rows="3" required></textarea>
-        <button type="submit" class="btn3d primary">메시지 남기기</button>
-      </form>
-      <ul class="guestbook__list" id="guestbookList"></ul>
+    <!-- ========== 추가 페이지 2: 가로로 흐르는 시그니처 (코발트 띠) ========== -->
+    <!-- 아래로 스크롤하면 카드들이 옆으로 지나가요 -->
+    <section class="signature stripe-cobalt" id="signature">
+      <div class="signature-sticky">
+        <div class="signature-track">
+          <div class="sig-intro">
+            <h2>SIGNATURE</h2>
+          </div>
+
+          <article class="sig-card card-yellow">
+            <div class="sig-image"><img src="images/latte-art.jpg" alt="Cream Latte"></div>
+            <div class="sig-body">
+              <span class="sig-num">01</span>
+              <h3>Cream Latte</h3>
+              <p>부드러운 크림과 에스프레소가 어우러진 시그니처 라떼</p>
+              <span class="sig-price">6,500</span>
+            </div>
+          </article>
+
+          <article class="sig-card card-orange">
+            <div class="sig-image"><img src="images/tiramisu.jpg" alt="Classic Tiramisu"></div>
+            <div class="sig-body">
+              <span class="sig-num">02</span>
+              <h3>Classic Tiramisu</h3>
+              <p>진한 마스카포네 크림과 커피 향을 담은 수제 티라미수</p>
+              <span class="sig-price">7,000</span>
+            </div>
+          </article>
+
+          <article class="sig-card card-white">
+            <div class="sig-image"><img src="images/lemon-ade.jpg" alt="Mellow Ade"></div>
+            <div class="sig-body">
+              <span class="sig-num">03</span>
+              <h3>Mellow Ade</h3>
+              <p>레몬과 허브를 사용한 상큼한 시그니처 에이드</p>
+              <span class="sig-price">6,000</span>
+            </div>
+          </article>
+
+          <article class="sig-card card-orange">
+            <div class="sig-image"><img src="images/strawberry-latte.jpg" alt="Strawberry Latte"></div>
+            <div class="sig-body">
+              <span class="sig-num">04</span>
+              <h3>Strawberry Latte</h3>
+            </div>
+          </article>
+
+          <article class="sig-card card-yellow">
+            <div class="sig-image"><img src="images/hand-drip-coffee.jpg" alt="핸드드립으로 커피를 내리는 모습"></div>
+            <div class="sig-body">
+              <span class="sig-num">TUE · FRI</span>
+              <h3>Roasting</h3>
+              <p>원두는 매주 화요일과 금요일에 조금씩 볶습니다.</p>
+            </div>
+          </article>
+        </div>
+
+        <!-- 가로 진행 막대 -->
+        <div class="signature-bar"><span></span></div>
+      </div>
     </section>
 
-    <!-- 공유 / 푸터 -->
-    <footer class="footer">
-      <svg class="footer__heart" aria-hidden="true"><use href="#heart" fill="url(#heartGloss)"/></svg>
-      <p class="footer__big">Thank<br>You!</p>
-      <button type="button" class="btn3d primary" id="shareBtn">청첩장 공유하기</button>
-      <p class="footer__copy">MINJUN &amp; SEOYEON · 2027</p>
-    </footer>
+    <!-- ========== 맨 아래: 카페 위치 지도 (오렌지 띠) ========== -->
+    <section class="findus stripe-orange" id="findus">
+      <div class="findus-text" data-reveal>
+        <h2 class="findus-title">FIND<br><span>US</span></h2>
+        <p class="findus-address">대구광역시 중구<br>멜로우로 12</p>
+        <p class="findus-hours">매일 10:00 – 21:00 · 매주 월요일 휴무</p>
+      </div>
+
+      <!-- 화면에 들어오면: 지도 주변이 어두워지며 카페 위치만 밝게 남고(스포트라이트),
+           핀 주위로 물결이 퍼지고, MELLOW BEAN 스티커가 톡 붙어요 -->
+      <div class="map-wrap" data-reveal style="--delay: 0.15s">
+        <div class="map-card" style="--x: 46.3%; --y: 46.5%;">
+          <img src="images/cafe-map.png" alt="MELLOW BEAN 위치 지도">
+          <div class="map-spot"></div>
+          <div class="map-ping"></div>
+          <span class="map-label">MELLOW BEAN</span>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- 갤러리 확대 보기 -->
-  <div class="lightbox" id="lightbox" aria-hidden="true">
-    <button type="button" class="lightbox__close" id="lbClose" aria-label="닫기">&times;</button>
-    <button type="button" class="lightbox__nav prev" id="lbPrev" aria-label="이전">&#8249;</button>
-    <div class="lightbox__img" id="lbImg"></div>
-    <button type="button" class="lightbox__nav next" id="lbNext" aria-label="다음">&#8250;</button>
-  </div>
+  <!-- 5. Footer -->
+  <footer class="footer">
+    <p>MELLOW BEAN · 대구광역시 중구 멜로우로 12 · 매일 10:00 – 21:00 (월요일 휴무) · hello@mellowbean.com</p>
+  </footer>
 
-  <!-- 토스트 메시지 -->
-  <div class="toast" id="toast"></div>
+  <!-- 맨 위로 버튼 (조금 내려가면 나타나요. 테두리 원이 스크롤 진행만큼 채워져요) -->
+  <button class="to-top" type="button" aria-label="맨 위로 이동">
+    <svg class="to-top-ring" viewBox="0 0 60 60" aria-hidden="true">
+      <circle cx="30" cy="30" r="27"></circle>
+    </svg>
+    <span class="to-top-arrow" aria-hidden="true">↑</span>
+  </button>
 
-  <script src="js/main.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

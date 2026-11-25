@@ -1,0 +1,1478 @@
+/* =========================================
+   MELLOW BEAN — 디자인노트.md 기준
+   색, 글꼴은 아래 변수만 바꾸면 전체에 적용돼요.
+   ========================================= */
+:root {
+  /* 색상: 코발트 대비 */
+  --yellow: #FFE45C;   /* 바탕 */
+  --orange: #FF7A00;   /* 포인트 */
+  --cobalt: #1F4FD8;   /* 대비색 */
+  --charcoal: #1A1A1A; /* 글자 */
+  --white: #FFFFFF;
+
+  /* 글꼴 */
+  --font-en: 'Anton', sans-serif;            /* 영문 제목 */
+  --font-ko: 'Black Han Sans', sans-serif;   /* 한글 제목 */
+  --font-body: 'Pretendard', sans-serif;     /* 본문 */
+
+  /* 움직임: 툭 튀어나왔다 부드럽게 멈추는 곡선 */
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --side: clamp(20px, 5vw, 80px);            /* 좌우 여백 */
+}
+
+/* ---------- 기본 ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--charcoal);
+  background: var(--yellow);
+  line-height: 1.7;
+  letter-spacing: -0.01em;
+  overflow-x: hidden;
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+/* 메뉴를 눌러 이동했을 때 제목이 Header에 가려지지 않게 */
+section,
+#location {
+  scroll-margin-top: 80px;
+}
+
+/* ---------- 색 띠 ---------- */
+.stripe-yellow { background: var(--yellow); color: var(--charcoal); }
+.stripe-cobalt { background: var(--cobalt); color: var(--white); }
+.stripe-orange { background: var(--orange); color: var(--charcoal); }
+
+/* 섹션 제목 (한글, 포스터처럼 크게) */
+.section-title {
+  font-family: var(--font-ko);
+  font-weight: 400;
+  font-size: clamp(48px, 8vw, 112px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 48px;
+}
+
+/* ---------- 스크롤 진행 막대 ---------- */
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  height: 4px;
+  width: 100%;
+  background: var(--orange);
+  transform: scaleX(0);          /* script.js가 스크롤에 맞춰 늘려요 */
+  transform-origin: left;
+}
+
+/* ---------- 1. Header ---------- */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px var(--side);
+  transition: padding 0.4s var(--ease), background 0.4s, box-shadow 0.4s;
+}
+
+/* 스크롤하면 Header가 얇아지고 바탕이 생겨요 (script.js가 .scrolled 추가) */
+.header.scrolled {
+  padding: 14px var(--side);
+  background: var(--yellow);
+  box-shadow: 0 2px 0 var(--charcoal);
+}
+
+.logo {
+  font-family: var(--font-en);
+  font-size: 30px;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: transform 0.3s var(--ease);
+}
+
+.logo:hover {
+  transform: rotate(-3deg) scale(1.05);
+}
+
+.nav {
+  display: flex;
+  gap: 36px;
+}
+
+/* 메뉴 글자 밑에서 밑줄이 쭉 그어지는 효과 */
+.nav a {
+  position: relative;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 3px;
+  background: var(--orange);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.35s var(--ease);
+}
+
+.nav a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ---------- 2. 첫 화면 ---------- */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 64px;
+  align-items: center;
+  padding: 140px var(--side) 80px;
+}
+
+/* 작은 글: 테두리 있는 알약 모양 */
+.hero-tag {
+  display: inline-block;
+  padding: 6px 16px;
+  border: 2px solid var(--charcoal);
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 28px;
+  animation: fade-up 0.8s var(--ease) both;
+}
+
+.hero-title {
+  font-family: var(--font-ko);
+  font-weight: 400;
+  font-size: clamp(48px, 7.5vw, 120px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 32px;
+}
+
+/* 제목 줄마다 아래에서 쑥 올라오는 효과 */
+.hero-title .line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+
+.hero-title .line > span {
+  display: inline-block;
+  animation: line-up 1s var(--ease) both;
+}
+
+.hero-title .line:nth-child(2) > span {
+  animation-delay: 0.15s;
+}
+
+/* "천천히." 뒤에 형광펜이 칠해지는 효과 */
+.mark {
+  font-style: normal;
+  background: linear-gradient(var(--orange), var(--orange)) no-repeat left 85% / 0% 35%;
+  animation: highlight 0.8s var(--ease) 1s forwards;
+}
+
+.hero-desc {
+  max-width: 460px;
+  font-size: 18px;
+  margin-bottom: 40px;
+  animation: fade-up 0.8s var(--ease) 0.4s both;
+}
+
+/* 밑줄 있는 글자 링크: 마우스를 올리면 밑줄이 두꺼워지고 화살표가 움직여요 */
+.text-link {
+  display: inline-block;
+  font-size: 22px;
+  font-weight: 800;
+  text-decoration: none;
+  padding-bottom: 4px;
+  background: linear-gradient(var(--charcoal), var(--charcoal)) no-repeat left bottom / 100% 3px;
+  transition: background-size 0.35s var(--ease), color 0.35s;
+  animation: fade-up 0.8s var(--ease) 0.55s both;
+}
+
+.text-link .arrow {
+  display: inline-block;
+  transition: transform 0.35s var(--ease);
+}
+
+.text-link:hover {
+  background-image: linear-gradient(var(--orange), var(--orange));
+  background-size: 100% 10px;
+}
+
+.text-link:hover .arrow {
+  transform: translateX(8px);
+}
+
+/* 오른쪽 사진: 아치 모양 + 뒤의 색 동그라미 (마우스를 따라 살짝 움직여요) */
+.hero-visual {
+  position: relative;
+  --mx: 0;   /* script.js가 마우스 위치를 -1 ~ 1 값으로 넣어줘요 */
+  --my: 0;
+}
+
+.hero-image {
+  position: relative;
+  overflow: hidden;
+  border-radius: 999px 999px 32px 32px;
+  border: 3px solid var(--charcoal);
+  transform: translate(calc(var(--mx) * -10px), calc(var(--my) * -10px));
+  transition: transform 0.4s var(--ease);
+  animation: arch-in 1.2s var(--ease) 0.2s both;
+}
+
+.hero-image img {
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  transform: scale(1.1);
+  transition: transform 1.2s var(--ease);
+}
+
+.hero-image:hover img {
+  transform: scale(1.18);
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  transition: transform 0.4s var(--ease);
+}
+
+.blob-cobalt {
+  width: 70%;
+  aspect-ratio: 1;
+  background: var(--cobalt);
+  right: -14%;
+  bottom: -8%;
+  transform: translate(calc(var(--mx) * 28px), calc(var(--my) * 28px));
+  animation: pop 1s var(--ease) 0.5s both;
+}
+
+.blob-orange {
+  width: 26%;
+  aspect-ratio: 1;
+  background: var(--orange);
+  left: -10%;
+  top: 12%;
+  z-index: 1;
+  transform: translate(calc(var(--mx) * 40px), calc(var(--my) * 40px));
+  animation: pop 1s var(--ease) 0.7s both;
+}
+
+/* ---------- 흐르는 글자 띠 (두 줄이 X자로 엇갈림) ---------- */
+.tapes {
+  position: relative;
+  height: 180px;
+  background: linear-gradient(var(--yellow) 50%, var(--cobalt) 50%);
+  overflow: hidden;
+}
+
+.tape {
+  position: absolute;
+  left: -5%;
+  width: 110%;
+  top: 50%;
+  padding: 14px 0;
+  overflow: hidden;
+}
+
+.tape-dark {
+  background: var(--charcoal);
+  color: var(--yellow);
+  transform: translateY(-50%) rotate(-3deg);
+  z-index: 1;
+}
+
+.tape-orange {
+  background: var(--orange);
+  color: var(--charcoal);
+  transform: translateY(-50%) rotate(3deg);
+}
+
+.tape-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+.tape-track.reverse {
+  animation-direction: reverse;
+}
+
+.tape span {
+  font-family: var(--font-en);
+  font-size: 32px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+/* ---------- 3. 메뉴 ---------- */
+.menu {
+  padding: 120px var(--side);
+}
+
+.menu-list {
+  list-style: none;
+}
+
+.menu-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 28px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4); /* 줄 사이 얇은 선 */
+  transition: color 0.4s var(--ease);
+}
+
+.menu-item:first-child {
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+/* 마우스를 올리면 왼쪽에서 노란색이 쭉 차오르는 효과 */
+.menu-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--yellow);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s var(--ease);
+  z-index: 0;
+}
+
+.menu-item > * {
+  position: relative;
+  z-index: 1;
+}
+
+.menu-item:hover {
+  color: var(--charcoal);
+}
+
+.menu-item:hover::before {
+  transform: scaleX(1);
+}
+
+/* 정사각형 사진: 마우스를 올리면 커지면서 기울어져요 */
+.menu-thumb {
+  width: 110px;
+  height: 110px;
+  flex-shrink: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.5s var(--ease), border-radius 0.5s var(--ease);
+}
+
+.menu-thumb img {
+  height: 100%;
+  object-fit: cover;
+}
+
+.menu-item:hover .menu-thumb {
+  transform: scale(1.15) rotate(-6deg);
+  border-radius: 50%;
+}
+
+.menu-info {
+  flex: 1;
+  transition: transform 0.5s var(--ease);
+}
+
+.menu-item:hover .menu-info {
+  transform: translateX(12px);
+}
+
+.menu-info h3 {
+  font-family: var(--font-en);
+  font-weight: 400;
+  font-size: clamp(28px, 4vw, 52px);
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.menu-info p {
+  opacity: 0.85;
+}
+
+.menu-price {
+  font-family: var(--font-en);
+  font-size: clamp(28px, 4vw, 52px);
+  color: var(--yellow);
+  transition: color 0.4s, transform 0.5s var(--ease);
+}
+
+.menu-item:hover .menu-price {
+  color: var(--orange);
+  transform: scale(1.1);
+}
+
+/* ---------- 4. 소개 · 오시는 길 ---------- */
+.about {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 96px);
+  align-items: start;
+  padding: 120px var(--side);
+}
+
+/* 사진: 스크롤하면 액자 안에서 천천히 움직여요 (script.js) */
+.about-image {
+  overflow: hidden;
+  border-radius: 32px;
+  border: 3px solid var(--charcoal);
+  aspect-ratio: 4 / 5;
+}
+
+.about-image img {
+  height: 120%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+.about-desc {
+  font-size: clamp(18px, 1.6vw, 22px);
+  font-weight: 500;
+  margin-bottom: 96px;
+}
+
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.info-table th,
+.info-table td {
+  text-align: left;
+  padding: 18px 0;
+  border-bottom: 2px solid var(--charcoal);
+  transition: padding 0.3s var(--ease);
+}
+
+.info-table th {
+  width: 120px;
+  font-weight: 800;
+}
+
+.info-table tr:hover td {
+  padding-left: 12px;
+}
+
+/* =========================================
+   추가 페이지 1: 커지는 사진 + 숫자
+   ========================================= */
+.tapes-orange-yellow {
+  background: linear-gradient(var(--orange) 50%, var(--yellow) 50%);
+}
+
+.tape-cobalt {
+  background: var(--cobalt);
+  color: var(--white);
+  transform: translateY(-50%) rotate(3deg);
+}
+
+/* --p 는 0(시작) ~ 1(끝) 사이 값. script.js가 스크롤에 맞춰 넣어줘요 */
+.zoom-track {
+  --p: 0;
+  height: 250vh;            /* 이 길이만큼 스크롤하는 동안 사진이 커져요 */
+}
+
+.zoom-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+/* 사진 뒤의 아주 큰 글자 */
+.zoom-word {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: var(--font-en);
+  font-size: 22vw;
+  line-height: 0.85;
+  pointer-events: none;
+}
+
+.word-left {
+  align-self: flex-start;
+  padding-left: var(--side);
+  color: var(--cobalt);
+  transform: translateX(calc(var(--p) * -45vw));
+}
+
+.word-right {
+  align-self: flex-end;
+  padding-right: var(--side);
+  color: var(--orange);
+  transform: translateX(calc(var(--p) * 45vw));
+}
+
+/* 가운데 사진: 작게 기울어진 카드 → 화면 가득 */
+.zoom-image {
+  position: relative;
+  z-index: 1;
+  width: calc(34vw + 66vw * var(--p));
+  height: calc(50vh + 50vh * var(--p));
+  border-radius: calc(40px * (1 - var(--p)));
+  border: calc(3px * (1 - var(--p))) solid var(--charcoal);
+  transform: rotate(calc(-6deg * (1 - var(--p))));
+  overflow: hidden;
+}
+
+.zoom-image img {
+  height: 100%;
+  object-fit: cover;
+  transform: scale(calc(1.3 - 0.3 * var(--p)));
+}
+
+/* 사진이 거의 다 커졌을 때(--p 0.75 이후) 어두운 그림자와 글이 나타나요 */
+.zoom-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent 40%, rgba(26, 26, 26, 0.75));
+  opacity: calc((var(--p) - 0.6) * 2.5);
+}
+
+.zoom-quote {
+  position: absolute;
+  z-index: 1;
+  left: var(--side);
+  bottom: 10vh;
+  font-family: var(--font-ko);
+  font-size: clamp(32px, 5vw, 80px);
+  line-height: 1.15;
+  color: var(--yellow);
+  opacity: calc((var(--p) - 0.75) * 4);
+  transform: translateY(calc((1 - var(--p)) * 120px));
+}
+
+/* 사진 주변에 둥둥 떠 있는 작은 사진들 */
+.float-photo {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 50%;
+  width: clamp(110px, 13vw, 200px);
+  aspect-ratio: 3 / 4;
+  border: 3px solid var(--charcoal);
+  border-radius: 20px;
+  overflow: hidden;
+  /* 스크롤할수록(--p) 바깥으로 3배 멀어지고, 더 돌고, 투명해져요 */
+  transform:
+    translate(-50%, -50%)
+    translate(calc(var(--dx) * (1 + 2 * var(--p))), calc(var(--dy) * (1 + 2 * var(--p))))
+    rotate(calc(var(--r) + var(--p) * 40deg));
+  opacity: calc(1 - var(--p) * 1.4);
+  animation: bob 3s ease-in-out infinite;
+  transition: scale 0.3s var(--ease);
+}
+
+.float-photo:hover {
+  scale: 1.1;
+}
+
+.float-photo img {
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 위아래로 둥실둥실 */
+@keyframes bob {
+  50% { translate: 0 -14px; }
+}
+
+/* 숫자 3개 */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  padding: 120px var(--side);
+}
+
+.stat {
+  border-top: 3px solid var(--charcoal);
+  padding-top: 24px;
+}
+
+.count {
+  display: block;
+  font-family: var(--font-en);
+  font-size: clamp(72px, 11vw, 180px);
+  line-height: 1;
+  margin-bottom: 16px;
+  transition: transform 0.3s var(--ease), color 0.3s;
+}
+
+.stat:hover .count {
+  color: var(--orange);
+  transform: rotate(-4deg) scale(1.05);
+}
+
+.stat p {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* =========================================
+   추가 페이지 2: 가로로 흐르는 시그니처
+   ========================================= */
+/* .signature 의 높이는 script.js가 카드 길이에 맞춰 정해요 */
+.signature-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.signature-track {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  padding: 0 var(--side);
+  will-change: transform;
+}
+
+/* 속이 빈 테두리 글자 */
+.sig-intro {
+  flex-shrink: 0;
+}
+
+.sig-intro h2 {
+  font-family: var(--font-en);
+  font-weight: 400;
+  font-size: clamp(80px, 14vw, 220px);
+  line-height: 0.9;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--yellow);
+}
+
+.sig-card {
+  flex-shrink: 0;
+  width: clamp(280px, 30vw, 420px);
+  padding: 18px;
+  border: 3px solid var(--charcoal);
+  border-radius: 32px;
+  color: var(--charcoal);
+  transform: rotate(-2deg);
+  transition: transform 0.5s var(--ease);
+}
+
+.sig-card:nth-of-type(even) {
+  transform: rotate(2deg) translateY(30px);
+}
+
+.sig-card:hover {
+  transform: rotate(0) scale(1.04);
+}
+
+.card-yellow { background: var(--yellow); }
+.card-orange { background: var(--orange); }
+.card-white  { background: var(--white); }
+
+.sig-image {
+  overflow: hidden;
+  border-radius: 20px;
+  aspect-ratio: 1;
+  margin-bottom: 18px;
+}
+
+.sig-image img {
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s var(--ease);
+}
+
+.sig-card:hover .sig-image img {
+  transform: scale(1.12) rotate(3deg);
+}
+
+.sig-num {
+  display: inline-block;
+  padding: 2px 12px;
+  border: 2px solid var(--charcoal);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.sig-card h3 {
+  font-family: var(--font-en);
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 1.1;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.sig-card p {
+  font-size: 15px;
+}
+
+.sig-price {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--font-en);
+  font-size: 28px;
+}
+
+/* 가로 진행 막대 */
+.signature-bar {
+  position: absolute;
+  left: var(--side);
+  right: var(--side);
+  bottom: 40px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.signature-bar span {
+  display: block;
+  height: 100%;
+  background: var(--orange);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/* 작은 화면이나 '움직임 줄이기' 설정에서는
+   가로 스크롤 연출 대신 손가락으로 넘기는 카드로 바뀌어요 (script.js와 같은 조건) */
+@media (max-width: 768px), (prefers-reduced-motion: reduce) {
+  .signature-sticky {
+    position: static;
+    height: auto;
+    display: block;
+    padding: 80px 0;
+  }
+
+  .signature-track {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 40px;
+  }
+
+  .sig-card {
+    width: 78vw;
+    max-width: 380px;
+    scroll-snap-align: center;
+  }
+
+  .signature-bar {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .zoom-track {
+    height: 180vh;
+  }
+
+  .zoom-image {
+    width: calc(70vw + 30vw * var(--p));
+    height: calc(45vh + 55vh * var(--p));
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+    padding: 80px var(--side);
+  }
+
+  .float-photo {
+    width: 24vw;
+    border-radius: 12px;
+  }
+}
+
+/* =========================================
+   맨 아래: 카페 위치 지도
+   ========================================= */
+.findus {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: clamp(40px, 6vw, 96px);
+  align-items: center;
+  padding: 120px var(--side);
+}
+
+.findus-title {
+  font-family: var(--font-en);
+  font-weight: 400;
+  font-size: clamp(96px, 14vw, 220px);
+  line-height: 0.85;
+  margin-bottom: 40px;
+}
+
+.findus-title span {
+  color: var(--cobalt);
+}
+
+.findus-address {
+  font-family: var(--font-ko);
+  font-size: clamp(28px, 3vw, 44px);
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.findus-hours {
+  display: inline-block;
+  padding: 6px 16px;
+  border: 2px solid var(--charcoal);
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+/* 지도 카드: 포스터처럼 살짝 기울고 진한 그림자 */
+.map-card {
+  position: relative;
+  overflow: hidden;
+  border: 3px solid var(--charcoal);
+  border-radius: 32px;
+  background: var(--white);
+  box-shadow: 14px 14px 0 var(--charcoal);
+  rotate: 2deg;
+  transition: rotate 0.5s var(--ease), box-shadow 0.5s var(--ease);
+}
+
+.map-card:hover {
+  rotate: 0deg;
+  box-shadow: 6px 6px 0 var(--charcoal);
+}
+
+/* 스포트라이트: 카페 위치(--x, --y)만 밝고 나머지는 어둡게.
+   --spot 은 밝은 원의 크기. 처음엔 150%(전체가 밝음) → 화면에 들어오면 16%로 좁아져요 */
+@property --spot {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 150%;
+}
+
+.map-spot {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  --spot: 150%;
+  background: radial-gradient(circle at var(--x) var(--y),
+              transparent var(--spot),
+              rgba(26, 26, 26, 0.55) calc(var(--spot) + 1%));
+  transition: --spot 1.6s var(--ease) 0.6s;
+}
+
+.map-wrap.is-visible .map-spot {
+  --spot: 16%;
+}
+
+/* 핀 주위로 퍼지는 물결 2겹 */
+.map-ping {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 28px;
+  height: 28px;
+  translate: -50% -50%;
+  pointer-events: none;
+}
+
+.map-ping::before,
+.map-ping::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 3px solid var(--cobalt);
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.map-wrap.is-visible .map-ping::before,
+.map-wrap.is-visible .map-ping::after {
+  animation: ping 2s ease-out 1.4s infinite;
+}
+
+.map-wrap.is-visible .map-ping::after {
+  animation-delay: 2.4s;
+}
+
+@keyframes ping {
+  from { transform: scale(1); opacity: 1; }
+  to   { transform: scale(6); opacity: 0; }
+}
+
+/* 핀 아래에 톡 붙는 MELLOW BEAN 스티커 */
+.map-label {
+  position: absolute;
+  left: var(--x);
+  top: 48.5%;
+  translate: -50% 0;
+  padding: 6px 18px;
+  background: var(--cobalt);
+  color: var(--white);
+  font-family: var(--font-en);
+  font-size: clamp(16px, 1.6vw, 22px);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  border: 3px solid var(--charcoal);
+  border-radius: 999px;
+  scale: 0;
+  rotate: -8deg;
+}
+
+.map-wrap.is-visible .map-label {
+  animation: sticker 0.6s cubic-bezier(0.3, 1.6, 0.5, 1) 1.8s forwards;
+}
+
+@keyframes sticker {
+  to { scale: 1; rotate: -4deg; }
+}
+
+@media (max-width: 768px) {
+  .findus {
+    grid-template-columns: 1fr;
+    padding: 80px var(--side);
+  }
+
+  .map-card {
+    rotate: 0deg;
+    box-shadow: 8px 8px 0 var(--charcoal);
+  }
+}
+
+/* '움직임 줄이기'에서는 효과 없이 최종 모습만 보여줘요 */
+@media (prefers-reduced-motion: reduce) {
+  .map-wrap.is-visible .map-label {
+    scale: 1;
+  }
+}
+
+/* ---------- 5. Footer ---------- */
+.footer {
+  background: var(--charcoal);
+  color: var(--yellow);
+  text-align: center;
+  padding: 28px;
+  font-size: 14px;
+}
+
+/* ---------- 스크롤하면 나타나는 효과 ----------
+   data-reveal이 붙은 요소는 화면에 들어올 때 아래에서 올라와요.
+   (script.js가 html에 .js, 요소에 .is-visible을 붙여요) */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+  transition-delay: var(--delay, 0s);
+}
+
+.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- 애니메이션 모음 ---------- */
+@keyframes line-up {
+  from { transform: translateY(110%); }
+  to   { transform: translateY(0); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes highlight {
+  to { background-size: 100% 35%; }
+}
+
+@keyframes arch-in {
+  from { clip-path: inset(100% 0 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes pop {
+  from { scale: 0; }
+  to   { scale: 1; }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* 기기에서 '움직임 줄이기'를 켠 사람에게는 효과를 끄기 */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .mark { background-size: 100% 35%; }
+  .js [data-reveal] { opacity: 1; transform: none; }
+}
+
+/* =========================================
+   반응형
+   - 태블릿: 1024px 이하
+   - 모바일: 768px 이하 (햄버거 메뉴)
+   - 작은 폰: 400px 이하
+   ========================================= */
+
+/* ---------- 맨 위로 버튼 (오른쪽 아래에 떠 있음) ---------- */
+.to-top {
+  position: fixed;
+  right: var(--side);
+  bottom: 32px;
+  z-index: 9;
+  width: 60px;
+  height: 60px;
+  display: grid;
+  place-items: center;
+  background: var(--orange);
+  color: var(--charcoal);
+  border: 3px solid var(--charcoal);
+  border-radius: 50%;
+  box-shadow: 4px 4px 0 var(--charcoal);
+  cursor: pointer;
+  /* 처음엔 작게 숨어 있다가 */
+  opacity: 0;
+  visibility: hidden;
+  scale: 0.4;
+  transition: opacity 0.3s, scale 0.4s var(--ease), visibility 0s 0.4s,
+              translate 0.2s, box-shadow 0.2s, transform 0.4s var(--ease);
+}
+
+/* 조금 내려가면 톡 튀어나와요 (script.js가 .show 추가) */
+.to-top.show {
+  opacity: 1;
+  visibility: visible;
+  scale: 1;
+  transition: opacity 0.3s, scale 0.5s cubic-bezier(0.3, 1.6, 0.5, 1), visibility 0s,
+              translate 0.2s, box-shadow 0.2s, transform 0.4s var(--ease);
+}
+
+.to-top:hover {
+  translate: -2px -2px;
+  box-shadow: 6px 6px 0 var(--charcoal);
+}
+
+.to-top:active {
+  translate: 2px 2px;
+  box-shadow: 1px 1px 0 var(--charcoal);
+}
+
+.to-top-arrow {
+  position: relative;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+/* 마우스를 올리면 화살표가 위로 통통 */
+.to-top:hover .to-top-arrow {
+  animation: arrow-bounce 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes arrow-bounce {
+  to { transform: translateY(-5px); }
+}
+
+/* 스크롤 진행 원: 둘레(170)만큼 점선을 그어두고, 진행도(--progress)만큼 보여줘요 */
+.to-top-ring {
+  position: absolute;
+  inset: 3px;
+  rotate: -90deg;              /* 12시 방향부터 채워지게 */
+}
+
+.to-top-ring circle {
+  fill: none;
+  stroke: var(--charcoal);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 170;
+  stroke-dashoffset: calc(170 * (1 - var(--progress, 0)));
+}
+
+/* 햄버거 버튼, 하단 내비는 PC에서는 숨김 */
+.menu-toggle,
+.bottom-nav {
+  display: none;
+}
+
+/* 휴대폰 주소창 높이 변화에도 화면 높이가 딱 맞도록 (지원하는 브라우저만) */
+@supports (height: 100svh) {
+  .hero { min-height: 100svh; }
+  .zoom-sticky,
+  .signature-sticky { height: 100svh; }
+}
+
+/* ---------- 태블릿 (1024px 이하) ---------- */
+@media (max-width: 1024px) {
+  .nav {
+    gap: 22px;
+  }
+
+  .hero {
+    gap: 40px;
+    padding-top: 120px;
+  }
+
+  .hero-title {
+    font-size: clamp(40px, 6.2vw, 80px);
+  }
+
+  .menu,
+  .about,
+  .findus {
+    padding-top: 96px;
+    padding-bottom: 96px;
+  }
+
+  .stats {
+    gap: 24px;
+  }
+
+  .stat p {
+    font-size: 16px;
+  }
+}
+
+/* ---------- 모바일 (768px 이하) ----------
+   띠 구조는 그대로, 띠 안의 내용만 1열로 쌓기 */
+@media (max-width: 768px) {
+  .header,
+  .header.scrolled {
+    padding: 12px var(--side);
+    background: var(--yellow);
+  }
+
+  .logo {
+    position: relative;
+    z-index: 12;            /* 메뉴가 열려도 로고가 보이게 */
+    font-size: 24px;
+    transition: color 0.3s;
+  }
+
+  /* 햄버거 버튼: 동그란 테두리 안에 선 3개 */
+  .menu-toggle {
+    position: relative;
+    z-index: 12;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    width: 46px;
+    height: 46px;
+    background: none;
+    border: 2px solid var(--charcoal);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: border-color 0.3s, rotate 0.5s var(--ease);
+  }
+
+  .menu-toggle span {
+    display: block;
+    width: 20px;
+    height: 2.5px;
+    margin: 0 auto;
+    background: var(--charcoal);
+    border-radius: 2px;
+    transition: transform 0.4s var(--ease), opacity 0.3s, background 0.3s;
+  }
+
+  /* 열렸을 때: 선 3개가 X 모양으로 */
+  .menu-open .menu-toggle {
+    border-color: var(--yellow);
+    rotate: 180deg;
+  }
+
+  .menu-open .menu-toggle span {
+    background: var(--yellow);
+  }
+
+  .menu-open .menu-toggle span:nth-child(1) { transform: translateY(8.5px) rotate(45deg); }
+  .menu-open .menu-toggle span:nth-child(2) { opacity: 0; }
+  .menu-open .menu-toggle span:nth-child(3) { transform: translateY(-8.5px) rotate(-45deg); }
+
+  .menu-open .logo {
+    color: var(--white);
+  }
+
+  /* 전체 화면 메뉴: 버튼 자리에서 코발트 원이 퍼지며 열려요 */
+  .nav {
+    position: fixed;
+    inset: 0;
+    z-index: 11;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    padding: 0 var(--side);
+    background: var(--cobalt);
+    clip-path: circle(0 at calc(100% - var(--side) - 23px) 35px);
+    visibility: hidden;
+    transition: clip-path 0.5s var(--ease), visibility 0s 0.5s;
+  }
+
+  .menu-open .nav {
+    clip-path: circle(150% at calc(100% - var(--side) - 23px) 35px);
+    visibility: visible;
+    transition: clip-path 0.7s var(--ease), visibility 0s;
+  }
+
+  /* 메뉴 글자: 크게, 한 줄씩 차례로 올라와요 */
+  .nav a {
+    font-family: var(--font-ko);
+    font-weight: 400;
+    font-size: clamp(40px, 12vw, 64px);
+    line-height: 1.25;
+    color: var(--yellow);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.4s, transform 0.5s var(--ease), color 0.3s;
+  }
+
+  .nav a::after {
+    height: 5px;
+  }
+
+  .menu-open .nav a {
+    opacity: 1;
+    transform: none;
+  }
+
+  .menu-open .nav a:nth-child(1) { transition-delay: 0.15s; }
+  .menu-open .nav a:nth-child(2) { transition-delay: 0.2s; }
+  .menu-open .nav a:nth-child(3) { transition-delay: 0.25s; }
+  .menu-open .nav a:nth-child(4) { transition-delay: 0.3s; }
+  .menu-open .nav a:nth-child(5) { transition-delay: 0.35s; }
+
+  .nav a:hover {
+    color: var(--white);
+  }
+
+  /* 메뉴가 열려 있는 동안 뒤 페이지는 스크롤 안 되게 */
+  body.menu-open {
+    overflow: hidden;
+  }
+
+  /* 글자 크기: 작은 화면에서 넘치지 않게 */
+  .hero-title {
+    font-size: clamp(34px, 10vw, 64px);
+  }
+
+  .hero-desc,
+  .about-desc {
+    font-size: 16px;
+  }
+
+  .text-link {
+    font-size: 19px;
+  }
+
+  .menu-info h3,
+  .menu-price {
+    font-size: clamp(20px, 6vw, 32px);
+  }
+
+  .zoom-quote {
+    font-size: clamp(24px, 7vw, 44px);
+  }
+
+  .info-table th {
+    width: 84px;
+  }
+
+  .info-table td {
+    word-break: break-all;
+  }
+
+  .hero,
+  .about {
+    grid-template-columns: 1fr;
+    padding: 110px var(--side) 72px;
+  }
+
+  .hero {
+    min-height: auto;
+  }
+
+  .hero-visual {
+    width: 85%;
+    margin: 0 auto;
+  }
+
+  .tapes {
+    height: 130px;
+  }
+
+  .tape span {
+    font-size: 22px;
+  }
+
+  .menu {
+    padding: 80px var(--side);
+  }
+
+  .menu-item {
+    gap: 16px;
+    padding: 20px 8px;
+  }
+
+  .menu-thumb {
+    width: 72px;
+    height: 72px;
+    border-radius: 14px;
+  }
+
+  .menu-info p {
+    font-size: 14px;
+  }
+
+  .about-desc {
+    margin-bottom: 64px;
+  }
+
+  .footer {
+    font-size: 13px;
+    line-height: 1.6;
+    padding-bottom: 110px;   /* 하단 내비에 가려지지 않게 */
+  }
+
+  /* 하단 플로팅 내비: 화면 아래에 떠 있는 알약 모양 */
+  .bottom-nav {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom));  /* 아이폰 홈 바 위로 */
+    z-index: 9;
+    display: flex;
+    gap: 4px;
+    padding: 6px;
+    background: var(--charcoal);
+    border: 2px solid var(--charcoal);
+    border-radius: 999px;
+    box-shadow: 0 6px 0 rgba(26, 26, 26, 0.25);
+    animation: nav-up 0.7s var(--ease) 0.8s both;   /* 처음에 아래에서 쑥 올라와요 */
+    transition: transform 0.4s var(--ease);
+  }
+
+  .bottom-nav a {
+    flex: 1;
+    padding: 10px 0;
+    border-radius: 999px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--yellow);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.3s, color 0.3s, transform 0.2s;
+  }
+
+  .bottom-nav a:active {
+    transform: scale(0.92);   /* 누르는 순간 살짝 눌리는 느낌 */
+  }
+
+  /* 지금 보고 있는 섹션 (script.js가 .active 추가) */
+  .bottom-nav a.active {
+    background: var(--yellow);
+    color: var(--charcoal);
+  }
+
+  /* 햄버거 메뉴가 열리면 아래로 숨기 */
+  .menu-open .bottom-nav {
+    transform: translateY(200%);
+  }
+
+  /* 맨 위로 버튼: 하단 내비 바로 위에 */
+  .to-top {
+    right: 14px;
+    bottom: calc(84px + env(safe-area-inset-bottom));
+    width: 52px;
+    height: 52px;
+  }
+
+  .to-top-arrow {
+    font-size: 21px;
+  }
+
+  .menu-open .to-top {
+    transform: translateY(300%);
+  }
+}
+
+/* transform 대신 translate를 써서, 메뉴 열림 때의 숨김(transform)과 겹치지 않게 */
+@keyframes nav-up {
+  from { translate: 0 200%; }
+  to   { translate: 0 0; }
+}
+
+/* ---------- 작은 폰 (400px 이하) ---------- */
+@media (max-width: 400px) {
+  .logo {
+    font-size: 21px;
+  }
+
+  .menu-item {
+    gap: 12px;
+    padding: 18px 4px;
+  }
+
+  .menu-thumb {
+    width: 60px;
+    height: 60px;
+  }
+
+  .tape span {
+    font-size: 18px;
+  }
+
+  .findus-hours {
+    font-size: 14px;
+  }
+
+  .bottom-nav a {
+    font-size: 12px;
+  }
+}
+
+/* 터치 화면에서는 '마우스 올림' 효과가 눌린 채로 남지 않게 */
+@media (hover: none) {
+  .menu-item:hover::before { transform: scaleX(0); }
+  .menu-item:hover { color: inherit; }
+  .menu-item:hover .menu-thumb,
+  .menu-item:hover .menu-info,
+  .menu-item:hover .menu-price { transform: none; }
+  .menu-item:hover .menu-price { color: var(--yellow); }
+}
